@@ -28,6 +28,19 @@ traversalPath = []
 # a visual aid
 world.printRooms()
 
+# declare the Queue class
+
+
+class Queue():
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, value):
+        self.queue.append(value)
+
+    def dequeue(self):
+        
+
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # TRAVERSAL TEST
 visited_rooms = set()
