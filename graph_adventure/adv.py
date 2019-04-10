@@ -21,10 +21,10 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-# traversalPath = ['n', 's']
+traversalPath = ['n', 's']
 # All code modifications below:
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-traversalPath = []
+# traversalPath = []
 
 # a visual aid
 world.printRooms()
@@ -51,6 +51,36 @@ class Queue():
 graph = {}
 
 print("*****\n")
+
+def traverseMap(player, direction=''):
+
+    # Fist check that all rooms have not been explored yet 
+    #   continue if they have not.
+    #   stop if they have.
+    if len(graph.keys()) == 500:
+        return
+    # if  the map is not fully explored & the room dosn't exist:
+    currentRoom = plater.currentRoom.id
+
+    if player.currentRoom.id not in graph:
+    # Initialize in your room graph with '?' exits
+    # 
+        graph[player.currentRoom.id] = {}
+        for exit in player.currentRoom.getExits():
+            graph[player.currentRoom.id][exit] = '?'
+
+    # When other rooms are the entry point
+    if direction is not '':
+        # find inverse direction of the current travel
+        opposite = inverseDirections[direction]
+        # set prevRoom using the given Room method 'getRoomInDirection'
+        prevRoom = player.currentRoom.getRoomInDirection(opposite)
+        # Update the entry for previous room to the graph
+        graph[currentRoom][opposite] = prevRoom.id
+
+    new_direction = '?'
+
+
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # TRAVERSAL TEST
