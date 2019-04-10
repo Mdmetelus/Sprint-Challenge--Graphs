@@ -29,9 +29,8 @@ traversalPath = []
 # a visual aid
 world.printRooms()
 
-# declare the Queue class
 
-
+# declare the Queue class:
 class Queue():
     def __init__(self):
         self.queue = []
