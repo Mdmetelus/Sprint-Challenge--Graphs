@@ -22,6 +22,7 @@ player = Player("Name", world.startingRoom)
 
 # FILL THIS IN
 # traversalPath = ['n', 's']
+# All code modifications below:
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 traversalPath = []
 
@@ -39,7 +40,18 @@ class Queue():
         self.queue.append(value)
 
     def dequeue(self):
-        
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+
+    def size(self):
+        return (len(self.queue))
+
+
+graph = {}
+
+print("*****\n")
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # TRAVERSAL TEST
