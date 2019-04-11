@@ -124,6 +124,7 @@ def traverseMap(player, direction=''):
                     q = Queue()
                     break
 
+                for eachNeighbor in graph[currentRoom].values():
                     # for each direction in this room we'll add it to the path.
                     #  to search through and add it to the queue
                     
