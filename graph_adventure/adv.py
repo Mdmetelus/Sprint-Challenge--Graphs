@@ -113,9 +113,11 @@ def traverseMap(player, direction=''):
             path = q.dequeue()
             currentRoom = path[-1]
         # Make the current room visited if its hasn't been done yet.
+            if currentRoom not in visited:
+                visited.add(currentRoom)
 
                 # If currentRoom has an unexplored exit then add it.
-               
+                if '?' in graph[currentRoom].values():
                     # Set the path to that room specifically.
                     # the queue will need to be reinicialized
                    
