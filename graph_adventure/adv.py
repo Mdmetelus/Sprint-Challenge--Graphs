@@ -21,10 +21,10 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = ['n', 's']
+# traversalPath = ['n', 's']
 # All code modifications below:
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# traversalPath = []
+traversalPath = []
 
 # a visual aid
 world.printRooms()
@@ -51,6 +51,13 @@ class Queue():
 graph = {}
 
 print("*****\n")
+print(player.currentRoom.id)
+print(player.currentRoom.getExits())
+
+directions = ('n', 's', 'e', 'w')
+
+inverseDirections = {'n': 's', 's': 'n', 'w': 'e', 'e': 'w'}
+
 
 def traverseMap(player, direction=''):
 
