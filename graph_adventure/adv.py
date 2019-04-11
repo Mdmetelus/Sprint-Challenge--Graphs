@@ -100,12 +100,16 @@ def traverseMap(player, direction=''):
     #  travel there if any, and  set a travel_path
     # instantiate a new Queue with the currentRoom
     # instantiated visited  and add the current room the the created queue.
+
     # If the Queue is more than zero(not emply), take out the last item.
     #  Make the current room to the last item in the path
     # Make the current room visited if its hasn't been done yet.
+
     # If currentRoom has an unexplored exit then add it.
+    
     # Set the path to that room specifically.
     # the queue will need to be reinicialized
+    
     # for each direction in this room we'll add it to the path.
     #  to search through and add it to the queue
                 
