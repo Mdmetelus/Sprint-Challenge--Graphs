@@ -138,11 +138,16 @@ def traverseMap(player, direction=''):
                     new_path.append(eachNeighbor)
                     q.enqueue(new_path)
 
-    # for loop for every room in the travel path
-    # For every room we walked along add the values that match to that room to our traversal path
+    for eachRoom in travel_path:
+        # for loop for every room in the travel path
+        room = player.currentRoom.id
+        g_keys = graph[room].keys()
+        for eachDoor in g_keys:
+            # For every room we walked along add the values that match to that room to our traversal path
     # Explore the map again now that we are at a room with an unexplored exit
-    # print(graph)
-    
+# print(graph)
+
+
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # TRAVERSAL TEST
 visited_rooms = set()
