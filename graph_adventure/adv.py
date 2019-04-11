@@ -83,11 +83,19 @@ def traverseMap(player, direction=''):
     # Wherever there are untraversed exits in this current room...
     # i.e. any '?' exit, 
     # travel in that direction
+    for exit in player.currentRoom.getExits():
+        if graph[currentRoom][exit] == '?':
             # when the current room has an unexplored exit make that exit the the new_direction
+            new_direction = exit
             # travel to the new exit direction and add(append) the current exit to the path
+            player.travel(exit)
+            traversalPath.append(exit)
             # set new_room to the player's current room and set the previous room's exit to the new room
+            new_room = player.currentRoom.id
+            graph[currentRoom][exit] = new_room
             # Walk there
-            
+            traverseMap(player, exit)
+            break
 
 
 
