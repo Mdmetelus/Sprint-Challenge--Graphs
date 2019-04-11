@@ -109,6 +109,9 @@ def traverseMap(player, direction=''):
 
         # If the Queue is more than zero(not emply), take out the last item.
         #  Make the current room to the last item in the path
+        while q.size() > 0:
+            path = q.dequeue()
+            currentRoom = path[-1]
         # Make the current room visited if its hasn't been done yet.
 
                 # If currentRoom has an unexplored exit then add it.
