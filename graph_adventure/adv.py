@@ -50,9 +50,10 @@ class Queue():
 
 graph = {}
 
-print("*****\n")
-print(player.currentRoom.id)
-print(player.currentRoom.getExits())
+print("===============\n")
+print("Current Room Location: ",player.currentRoom.id)
+print("\n")
+print("Initial Exit Options: ", player.currentRoom.getExits())
 
 directions = ('n', 's', 'e', 'w')
 
@@ -67,7 +68,7 @@ def traverseMap(player, direction=''):
     if len(graph.keys()) == 500:
         return
     # if  the map is not fully explored & the room dosn't exist:
-    currentRoom = plater.currentRoom.id
+    currentRoom = player.currentRoom.id
 
     if player.currentRoom.id not in graph:
     # Initialize in your room graph with '?' exits
@@ -149,7 +150,18 @@ def traverseMap(player, direction=''):
                 traversalPath.append(eachDoor)
 
     # Explore the map again now that we are at a room with an unexplored exit
+    traverseMap(player)
+
+
+traverseMap(player)
+
+
 # print(graph)
+print("\n")
+print("My Full Traversal Path: ", traversalPath)
+print("\n")
+print("My Full Traversal Path Has Concluded")
+print("\n===")
 
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
