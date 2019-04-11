@@ -144,6 +144,10 @@ def traverseMap(player, direction=''):
         g_keys = graph[room].keys()
         for eachDoor in g_keys:
             # For every room we walked along add the values that match to that room to our traversal path
+            if graph[room][eachDoor] == eachRoom:
+                player.travel(eachDoor)
+                traversalPath.append(eachDoor)
+
     # Explore the map again now that we are at a room with an unexplored exit
 # print(graph)
 
