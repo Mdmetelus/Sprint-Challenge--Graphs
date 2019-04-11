@@ -120,7 +120,10 @@ def traverseMap(player, direction=''):
                 if '?' in graph[currentRoom].values():
                     # Set the path to that room specifically.
                     # the queue will need to be reinicialized
-                   
+                    travel_path = path
+                    q = Queue()
+                    break
+
                     # for each direction in this room we'll add it to the path.
                     #  to search through and add it to the queue
                     
