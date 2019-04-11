@@ -103,6 +103,9 @@ def traverseMap(player, direction=''):
     if new_direction is '?':
         # instantiate a new Queue with the currentRoom
         # instantiated visited  and add the current room the the created queue.
+        q = Queue()
+        visited = set()
+        q.enqueue([currentRoom])
 
         # If the Queue is more than zero(not emply), take out the last item.
         #  Make the current room to the last item in the path
