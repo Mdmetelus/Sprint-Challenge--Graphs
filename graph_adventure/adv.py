@@ -21,9 +21,150 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = ['n', 's']
+# traversalPath = ['n', 's']
+# All code modifications below:
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+traversalPath = []
+
+# a visual aid
+world.printRooms()
 
 
+# declare the Queue class:
+class Queue():
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, value):
+        self.queue.append(value)
+
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+
+    def size(self):
+        return (len(self.queue))
+
+
+graph = {}
+
+print("===============\n")
+print("Current Room Location: ",player.currentRoom.id)
+print("\n")
+print("Initial Exit Options: ", player.currentRoom.getExits())
+
+directions = ('n', 's', 'e', 'w')
+
+inverseDirections = {'n': 's', 's': 'n', 'w': 'e', 'e': 'w'}
+
+
+def traverseMap(player, direction=''):
+
+    # Fist check that all rooms have not been explored yet 
+    #   continue if they have not.
+    #   stop if they have.
+    if len(graph.keys()) == 500:
+        return
+    # if  the map is not fully explored & the room dosn't exist:
+    currentRoom = player.currentRoom.id
+
+    if player.currentRoom.id not in graph:
+    # Initialize in your room graph with '?' exits
+    # 
+        graph[player.currentRoom.id] = {}
+        for exit in player.currentRoom.getExits():
+            graph[player.currentRoom.id][exit] = '?'
+
+    # When other rooms are the entry point
+    if direction is not '':
+        # find inverse direction of the current travel
+        opposite = inverseDirections[direction]
+        # set prevRoom using the given Room method 'getRoomInDirection'
+        prevRoom = player.currentRoom.getRoomInDirection(opposite)
+        # Update the entry for previous room to the graph
+        graph[currentRoom][opposite] = prevRoom.id
+
+    new_direction = '?'
+
+    # Wherever there are untraversed exits in this current room...
+    # i.e. any '?' == exit, 
+    # travel in that direction
+    for exit in player.currentRoom.getExits():
+        if graph[currentRoom][exit] == '?':
+            # when the current room has an unexplored exit make that exit the the new_direction
+            new_direction = exit
+            # travel to the new exit direction and add(append) the current exit to the path
+            player.travel(exit)
+            traversalPath.append(exit)
+            # set new_room to the player's current room and set the previous room's exit to the new room
+            new_room = player.currentRoom.id
+            graph[currentRoom][exit] = new_room
+            # Walk there
+            traverseMap(player, exit)
+            break
+    # Now also find the closest room basedon using BFS with any unexplored exit.
+    #  travel there if any, and  set a travel_path
+    travel_path = []
+
+    if new_direction is '?':
+        # instantiate a new Queue with the currentRoom
+        # instantiated visited  and add the current room the the created queue.
+        q = Queue()
+        visited = set()
+        q.enqueue([currentRoom])
+
+        # If the Queue is more than zero(not emply), take out the last item.
+        #  Make the current room to the last item in the path
+        while q.size() > 0:
+            path = q.dequeue()
+            currentRoom = path[-1]
+        # Make the current room visited if its hasn't been done yet.
+            if currentRoom not in visited:
+                visited.add(currentRoom)
+
+                # If currentRoom has an unexplored exit then add it.
+                if '?' in graph[currentRoom].values():
+                    # Set the path to that room specifically.
+                    # the queue will need to be reinicialized
+                    travel_path = path
+                    q = Queue()
+                    break
+
+                for eachNeighbor in graph[currentRoom].values():
+                    # for each direction in this room we'll add it to the path.
+                    #  to search through and add it to the queue
+                    new_path = list(path)
+                    new_path.append(eachNeighbor)
+                    q.enqueue(new_path)
+
+    for eachRoom in travel_path:
+        # for loop for every room in the travel path
+        room = player.currentRoom.id
+        g_keys = graph[room].keys()
+        for eachDoor in g_keys:
+            # For every room we walked along add the values that match to that room to our traversal path
+            if graph[room][eachDoor] == eachRoom:
+                player.travel(eachDoor)
+                traversalPath.append(eachDoor)
+
+    # Explore the map again now that we are at a room with an unexplored exit
+    traverseMap(player)
+
+
+traverseMap(player)
+
+
+# print(graph)
+print("\n")
+print("My Full Traversal Path: ", traversalPath)
+print("\n")
+print("My Full Traversal Path Has Concluded")
+print("\n===")
+
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # TRAVERSAL TEST
 visited_rooms = set()
 player.currentRoom = world.startingRoom
